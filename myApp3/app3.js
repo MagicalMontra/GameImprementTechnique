@@ -26,13 +26,13 @@ app.get('/users',function(req,res){
     });
 });
 
-app.get('/user',function(req,res){
+app.get('/user/:name',function(req,res){
     var name = req.params.name;
     console.log (name);
 
     queryUser(function(err,result){
         res.end(result);
-    });
+    },name);
 });
 
 var server = app.listen(8081,function(){
@@ -53,10 +53,10 @@ function queryAllUser (callback)
     });
 }
 
-function queryUser (callback)
+function queryUser (callback,name)
 {
     var json = '';
-    connection.query("SELECT * FROM user WHERE name = 'Deckard'",
+    connection.query("SELECT * FROM user WHERE name = ?",name,
     function (err, rows, fields)
     {
         if (err) throw err;
