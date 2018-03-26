@@ -35,6 +35,21 @@ app.get('/user/:name',function(req,res){
     },name);
 });
 
+app.get('/user/add/user',function(req,res){
+    var name = req.query.name;
+    var password = req.query.pass;
+
+    var user = [
+        [name,password]
+    ];
+
+    addUser(user,function(err,result){
+        res.end(result);
+    })
+
+    //res.end(name + " " + password);
+});
+
 var server = app.listen(8081,function(){
     console.log('Server : Running');
 });
@@ -64,5 +79,23 @@ function queryUser (callback,name)
         json = JSON.stringify(rows);
 
         callback(null,json);
+    });
+}
+
+function addUser (user,callback)
+{
+    var sql = 'INSERT INTO user(name,password) values ?';
+    connection.query(sql,[user],
+    function (err)
+    {
+        var result = '[{success":"true"}]'
+
+        if (err)
+        {
+            var result = '[{success":"false"}]'
+            throw err;
+        }
+
+        callback(null,result);
     });
 }

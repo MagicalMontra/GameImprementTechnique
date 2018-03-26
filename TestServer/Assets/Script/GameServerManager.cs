@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 
 public class GameServerManager : MonoBehaviour {
+
+    [SerializeField]
+    Text userText;
+    [SerializeField]
+    Text passText;
 
     [SerializeField]
     string URL;
@@ -31,8 +37,7 @@ public class GameServerManager : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Register()
     {
 
     }
