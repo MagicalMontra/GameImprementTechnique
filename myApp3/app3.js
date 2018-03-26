@@ -3,9 +3,9 @@ var mySql = require ('mysql');
 var app = express();
 
 var connection = mySql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'123456',
+    host:'cgmgameserver.cshyvbtfvili.ap-southeast-1.rds.amazonaws.com',
+    user:'admin',
+    password:'08012540',
     database:'game1'
 });
 
