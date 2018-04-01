@@ -3,7 +3,7 @@ var mySql = require ('mysql');
 var app = express();
 
 var connection = mySql.createConnection({
-    host:'cgmgameserver.cshyvbtfvili.ap-southeast-1.rds.amazonaws.com',
+    host:'mydb.cshyvbtfvili.ap-southeast-1.rds.amazonaws.com',
     user:'admin',
     password:'08012540',
     database:'game1'
@@ -36,11 +36,13 @@ app.get('/user/:name',function(req,res){
 });
 
 app.get('/user/add/user',function(req,res){
-    var name = req.query.name;
-    var password = req.query.pass;
+    var susername = req.query.username;
+    var spassword = req.query.pass;
+    var sname = req.query.name;
+    var sscore = req.query.score;
 
     var user = [
-        [name,password]
+        [susername,spassword,sname,sscore]
     ];
 
     addUser(user,function(err,result){
@@ -71,7 +73,7 @@ function queryAllUser (callback)
 function queryUser (callback,name)
 {
     var json = '';
-    connection.query("SELECT * FROM user WHERE name = ?",name,
+    connection.query("SELECT * FROM user WHERE username = ?",name,
     function (err, rows, fields)
     {
         if (err) throw err;
@@ -84,7 +86,7 @@ function queryUser (callback,name)
 
 function addUser (user,callback)
 {
-    var sql = 'INSERT INTO user(name,password) values ?';
+    var sql = 'INSERT INTO user(username,password,name,score) values ?';
     connection.query(sql,[user],
     function (err)
     {
